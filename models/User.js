@@ -14,4 +14,16 @@ const useSchema = new Schema({
     unique: true,
     match: [/.+\@.+\..+/, "Email address must be matched!"],
   },
+  thoughts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Thought",
+    },
+  ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
