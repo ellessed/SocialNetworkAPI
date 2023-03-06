@@ -64,28 +64,57 @@ const thController = {
       });
   },
   // Delete Thought
+  // deleteThought(req, res) {
+  //   Thought.findOneAndRemove({ _id: req.params.thoughtsId })
+  //     .then((dbThought) =>
+  //       !dbThought
+  //         ? res
+  //             .status(404)
+  //             .json({ message: "No thought has been found with this id" })
+  //         : User.findOneAndUpdate(
+  //             { thoughts: req.params.thoughtsId },
+  //             { $pull: { thoughts: req.params.thoughtsId } },
+  //             { new: true }
+  //           )
+  //     )
+  //     .then((dbUser) =>
+  //       !dbUser
+  //         ? res
+  //             .status(404)
+  //             .json({ message: "Thought created but no user with this id!" })
+  //         : res.json({ message: "Thought successfully deleted!" })
+  //     )
+  //     .catch((err) => {
+  //       res.status(500).json(err);
+  //     });
+  // },
   deleteThought(req, res) {
-    Thought.findOneAndRemove({ _id: req.params.thoughtsId })
-      .then((dbThought) =>
-        !dbThought
-          ? res
-              .status(404)
-              .json({ message: "No thought has been found with this id" })
-          : User.findOneAndUpdate(
-              { thoughts: req.params.thoughtsId },
-              { $pull: { thoughts: req.params.thoughtsId } },
-              { new: true }
-            )
-      )
-      .then((dbUser) =>
-        !dbUser
-          ? res
-              .status(404)
-              .json({ message: "Thought created but no user with this id!" })
-          : res.json({ message: "Thought successfully deleted!" })
-      )
+    console.log(req.params);
+
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((dbThought) => {
+        if (!dbThought) {
+          return res
+            .status(404)
+            .json({ message: "No thought has been found with this id" });
+        }
+        return User.findOneAndUpdate(
+          { thoughts: req.params.thoughtId },
+          { $pull: { thoughts: req.params.thoughtId } },
+          { new: true }
+        );
+      })
+      .then((dbUser) => {
+        if (!dbUser) {
+          return res
+            .status(404)
+            .json({ message: "Thought created but no user with this id!" });
+        }
+        res.json({ message: "Thought successfully deleted!" });
+      })
       .catch((err) => {
-        res.status(500).json(err);
+        console.log(err);
+        // res.status(500).json(err);
       });
   },
   // Add a Thought reaction to exisiting thought
