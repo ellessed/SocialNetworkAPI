@@ -35,7 +35,7 @@ Once you have finished using the database, be sure to run (ctrl+C) or (^C) to cl
 
 The code files are fully commented, to explain the flow and logic of the code, so that others can work on this and expand on it too.
 
-## link to video
+## link to demo
 
 https://drive.google.com/file/d/1m9Qoy8_OP3cXOYa3gwQN2Kw3PAriflAv/view
 
